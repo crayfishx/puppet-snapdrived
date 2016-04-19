@@ -272,7 +272,7 @@ snaprestore-make-rollback="<%= @snaprestore_make_rollback %>" #Create snap rollb
 snaprestore-must-make-rollback="<%= @snaprestore_must_make_rollback %>" #Do not continue 'snap restore' if rollback creation fails
 <%- end -%>
 <%- if @snaprestore_snapmirror_check -%>
-snaprestore-snapmirror-check="<% @snaprestore_snapmirror_check %>" #Enable snapmirror destination volume check in snap restore
+snaprestore-snapmirror-check="<%= @snaprestore_snapmirror_check %>" #Enable snapmirror destination volume check in snap restore
 <%- end -%>
 <%- if @space_reservations_enabled -%>
 space-reservations-enabled="<%= @space_reservations_enabled %>" #Enable space reservations when creating new luns
@@ -302,10 +302,10 @@ use-efi-label="<%= @use_efi_label %>" #Enables use of EFI labels on Solaris whic
 use-https-to-dfm="<%= @use_https_to_dfm %>" #Communication with DFM done via HTTPS instead of HTTP
 <%- end -%>
 <%- if @use_https_to_filer -%>
-use-https-to-filer="<% @use_https_to_filer %>" #Communication with filer done via HTTPS instead of HTTP
+use-https-to-filer="<%= @use_https_to_filer %>" #Communication with filer done via HTTPS instead of HTTP
 <%- end -%>
 <%- if @use_https_to_sdu_daemon -%>
-use-https-to-sdu-daemon="<% @use_https_to_sdu_daemon %>" #Communication with daemon done via HTTPS instead of HTTP
+use-https-to-sdu-daemon="<%= @use_https_to_sdu_daemon %>" #Communication with daemon done via HTTPS instead of HTTP
 <%- end -%>
 <%- if @use_https_to_viadmin -%>
 use-https-to-viadmin="<%= @use_https_to_viadmin %>" #Specifies if HTTPS must be used to communicate with SMVI Product
