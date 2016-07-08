@@ -145,7 +145,7 @@ class snapdrived (
   file { '/opt/NetApp/snapdrive/snapdrive.conf':
     content => template('snapdrived/snapdrive.conf.erb'),
     mode    => '0644',
-    require => Package['netapp.snapdrive'],
+    require => Package["$package_name"],
   }
 
   service { 'snapdrived':
@@ -158,6 +158,7 @@ class snapdrived (
     'RedHat': {
       if versioncmp($::operatingsystemmajrelease, 7) >= 0 {
 
+        include ::systemd
         # Create trigger script for unit file
         file { '/opt/NetApp/snapdrive/bin/env.sh':
           content => template('snapdrived/env.sh'),
@@ -169,6 +170,17 @@ class snapdrived (
           content => template('snapdrived/snapdrived.service'),
           before  => Service['snapdrived'],
         }
+        ~>
+        # The post install script of netpapp.snadrive's RPM will start the
+        # snapdrive daemon immediately using it's own init script 
+        # when the package is installed. Systemd won't be aware of the running
+        # process and fails to control it if we do not shut it down explicitely.
+        exec {'Stop snapdrived started by rpm /etc/init.d/snapdrived.':
+          command     => "/etc/init.d/snapdrived stop",
+          refreshonly => true,
+          logoutput   => true,
+          require     => [Package["$package_name"], Exec['systemctl-daemon-reload']],
+        } ~> Service['snapdrived']
       }
     }
     default: {}
