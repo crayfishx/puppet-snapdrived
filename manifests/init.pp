@@ -170,7 +170,7 @@ class snapdrived (
           content => template('snapdrived/snapdrived.service'),
           before  => Service['snapdrived'],
         }
-        ~>
+
         # The post install script of netpapp.snadrive's RPM will start the
         # snapdrive daemon immediately using it's own init script 
         # when the package is installed. Systemd won't be aware of the running
@@ -179,7 +179,9 @@ class snapdrived (
           command     => "/etc/init.d/snapdrived stop",
           refreshonly => true,
           logoutput   => true,
-          require     => [Package["$package_name"], Exec['systemctl-daemon-reload']],
+          subscribe   => Package["$package_name"],
+          before      => Service['snapdrived'],
+          require     => Exec['systemctl-daemon-reload'],
         } ~> Service['snapdrived']
       }
     }
