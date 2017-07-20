@@ -156,7 +156,7 @@ class snapdrived (
 
   case $::operatingsystem {
     'RedHat': {
-      if versioncmp($::operatingsystemmajrelease, 7) >= 0 {
+      if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
 
         include ::systemd
         # Create trigger script for unit file

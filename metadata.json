@@ -1,6 +1,6 @@
 {
   "name": "occelebi-snapdrived",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Onur Cem Celebi",
   "summary": "Netapp snapdrived module",
   "license": "Apache-2.0",
